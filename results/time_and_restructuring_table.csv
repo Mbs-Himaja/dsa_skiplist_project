@@ -1,0 +1,36 @@
+workload,variant,hops,ns_per_search,promotions_per_1k,demotions_per_1k
+Uniform,Plain skip list,32.05,788,0.0,0.0
+Uniform,"Counters, no aging",31.99,846,5.8,0.0
+Uniform,Counters + scheduled aging,32.04,881,32.5,32.5
+Uniform,SASL-style,32.87,3712,6590.5,6569.8
+Uniform,Ours (shift-triggered aging),31.99,842,5.8,0.0
+90-10,Plain skip list,32.07,694,0.0,0.0
+90-10,"Counters, no aging",28.76,639,12.0,0.0
+90-10,Counters + scheduled aging,29.47,669,26.5,17.1
+90-10,SASL-style,29.36,2466,4498.9,4478.2
+90-10,Ours (shift-triggered aging),28.76,623,12.0,0.0
+95-5,Plain skip list,32.09,684,0.0,0.0
+95-5,"Counters, no aging",26.75,510,8.5,0.0
+95-5,Counters + scheduled aging,27.65,547,12.4,5.1
+95-5,SASL-style,27.65,1999,3662.6,3641.9
+95-5,Ours (shift-triggered aging),26.75,547,8.5,0.0
+99-1,Plain skip list,32.15,571,0.0,0.0
+99-1,"Counters, no aging",21.98,287,2.9,0.0
+99-1,Counters + scheduled aging,23.36,324,2.9,0.3
+99-1,SASL-style,24.25,1126,2094.9,2074.2
+99-1,Ours (shift-triggered aging),21.98,281,2.9,0.0
+Zipf,Plain skip list,32.12,552,0.0,0.0
+Zipf,"Counters, no aging",22.67,460,4.5,0.0
+Zipf,Counters + scheduled aging,23.25,496,19.6,17.3
+Zipf,SASL-style,25.69,1775,2961.1,2940.4
+Zipf,Ours (shift-triggered aging),22.67,456,4.5,0.0
+Shifting 99-1,Plain skip list,32.07,595,0.0,0.0
+Shifting 99-1,"Counters, no aging",26.74,462,3.9,0.0
+Shifting 99-1,Counters + scheduled aging,23.68,358,5.1,4.1
+Shifting 99-1,SASL-style,24.29,1180,2095.7,2087.4
+Shifting 99-1,Ours (shift-triggered aging),23.81,343,5.2,3.4
+Shifting 95-5,Plain skip list,32.04,776,0.0,0.0
+Shifting 95-5,"Counters, no aging",30.17,766,8.3,0.0
+Shifting 95-5,Counters + scheduled aging,27.95,663,19.0,16.0
+Shifting 95-5,SASL-style,27.63,2121,3665.2,3656.9
+Shifting 95-5,Ours (shift-triggered aging),28.12,637,16.0,11.5
