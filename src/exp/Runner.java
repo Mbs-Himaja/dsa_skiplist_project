@@ -1,11 +1,9 @@
 package exp;
-
 import core.Config;
 import core.CounterSkipList;
 import core.OursSkipList;
 import core.PlainSkipList;
 import core.SkipListBase;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.Files;
@@ -13,11 +11,6 @@ import java.nio.file.Path;
 import java.util.*;
 import java.util.concurrent.*;
 
-/**
- * Usage: java -cp out exp.Runner <workload> <n> <m> <seedCount> <firstSeed> [shiftEvery] [threads]
- * Every variant gets the same search sequence and the same starting list for a given seed.
- * Use threads = 1 when you want timings you can quote (parallel runs disturb timing, not hop counts).
- */
 public final class Runner {
     static final String[] VARIANTS = {"V0", "V1", "V2", "V4", "V5"};
     static final String[] LABELS = {"Plain skip list", "Counters, no aging", "Counters + scheduled aging",

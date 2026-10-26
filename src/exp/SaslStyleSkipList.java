@@ -1,13 +1,6 @@
 package exp;
-
 import core.SkipListBase;
 
-/**
- * V4: a simplified recency-based rival in the spirit of the Self-Adjusting Skip List (SASL).
- * This is our own simplification, not the original algorithm.
- * The searched key goes to the top band; when a band is over capacity its oldest key cascades to the next band,
- * and keys leaving the last band return to their original (base) height.
- */
 public class SaslStyleSkipList extends SkipListBase {
     private static final int BANDS = 3;
     private final int[] bandHeight = new int[BANDS];

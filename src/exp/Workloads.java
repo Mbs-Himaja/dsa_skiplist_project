@@ -1,12 +1,6 @@
 package exp;
-
 import java.util.SplittableRandom;
 
-/**
- * Search sequences. Names: uniform, zipf, hotX_Y (X% of searches go to Y% of the keys, e.g. hot99_1),
- * shiftX_Y (as hotX_Y but a new random hot set is chosen every 'shiftEvery' searches).
- * Keys are 0..n-1; popularity ranks are mapped to a random permutation of the keys.
- */
 public final class Workloads {
     private Workloads() {}
 

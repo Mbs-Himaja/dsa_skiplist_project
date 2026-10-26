@@ -1,15 +1,11 @@
 package core;
 
-/**
- * V1 / V2: one counter per node; height follows the key's estimated share of all searches.
- * V1 = counters only grow. V2 = counters are halved every 'epoch' recorded searches.
- */
 public class CounterSkipList extends SkipListBase {
     protected final int delta;
     protected final int minCount;
     private final boolean scheduled;
     private final long epoch;
-    protected long total = 0;                    // recorded searches since the last halving
+    protected long total = 0;                    
     private final boolean[] inPromoted;
     private final int[] promoted;
     private int promotedCount = 0;
@@ -24,7 +20,6 @@ public class CounterSkipList extends SkipListBase {
         this.promoted = new int[capacity + 1];
     }
 
-    /** Height this node should have: 1 + floor(log2(n * count / total)) - delta, but never below its base. */
     protected int targetHeight(int u) {
         if (total <= 0 || count[u] < minCount) return base[u];
         long x = (long) n * count[u] / total;
@@ -46,7 +41,6 @@ public class CounterSkipList extends SkipListBase {
         return hops;
     }
 
-    /** Halve every counter and the total, then lower towers whose target has dropped. */
     protected void age() {
         for (int i = 1; i < used; i++) count[i] >>= 1;
         total >>= 1;

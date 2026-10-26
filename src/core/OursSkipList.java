@@ -1,10 +1,5 @@
 package core;
 
-/**
- * V5 (proposed method): counters as in V1, plus shift-triggered aging.
- * After every 'window' searches the window's mean hops is compared with the best mean among the last
- * 'history' windows; if it is more than 'trigger' times worse, all counters are halved.
- */
 public class OursSkipList extends CounterSkipList {
     private final int window;
     private final double trigger;

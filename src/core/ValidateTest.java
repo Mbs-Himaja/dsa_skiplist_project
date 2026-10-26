@@ -1,14 +1,8 @@
 package core;
-
 import exp.SaslStyleSkipList;
-
 import java.util.SplittableRandom;
 import java.util.TreeSet;
 
-/**
- * Random mix of insert / delete / search compared with java.util.TreeSet after every operation,
- * with structural validation every 20,000 operations. Run: java -cp out core.ValidateTest
- */
 public final class ValidateTest {
     public static void main(String[] args) {
         int range = 4000;
@@ -26,9 +20,8 @@ public final class ValidateTest {
             TreeSet<Integer> ref = new TreeSet<>();
             SplittableRandom r = new SplittableRandom(123);
             for (int i = 0; i < ops; i++) {
-                // 90% of operations touch 40 hot keys, which makes promotions and (re)moves happen
                 int k = (r.nextInt(100) < 90) ? r.nextInt(40) : r.nextInt(range);
-                if (i % 150_000 == 0 && i > 0) k = range - 1 - k;     // move the hot set once in a while
+                if (i % 150_000 == 0 && i > 0) k = range - 1 - k;     
                 int op = r.nextInt(100);
                 if (op < 4) {
                     list.insert(k);

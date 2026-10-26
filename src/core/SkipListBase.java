@@ -3,24 +3,19 @@ package core;
 import java.util.Arrays;
 import java.util.SplittableRandom;
 
-/**
- * Array-based skip list shared by every variant.
- * Slot 0 is the header. Lanes are numbered 0..MAXL-1 in the code; a node's "height" is the number of lanes it occupies.
- * A "hop" is one pointer followed, to the right or down. A search stops as soon as the key is met in any lane.
- */
 public abstract class SkipListBase {
     public static final int MAXL = 24;
 
     protected final int[] key, base, height, count;
-    protected final int[] nxt;                 // nxt[node * MAXL + lane]; -1 means no next node
-    protected int used = 1;                    // slots handed out so far (slot 0 is the header)
+    protected final int[] nxt;                 
+    protected int used = 1;                    
     private final int[] freeSlots;
     private int freeTop = 0;
-    protected int n = 0;                       // number of keys stored
-    protected int top = 1;                     // number of lanes currently in use
+    protected int n = 0;                       
+    protected int top = 1;                     
     protected final SplittableRandom rng;
-    protected final int[] pred = new int[MAXL];       // predecessors saved by search()
-    protected final int[] predFull = new int[MAXL];   // predecessors saved by a full descent
+    protected final int[] pred = new int[MAXL];       
+    protected final int[] predFull = new int[MAXL];   
     protected int lastHops;
     protected boolean lastFound;
     public long promotions, demotions;
@@ -39,7 +34,6 @@ public abstract class SkipListBase {
         rng = new SplittableRandom(seed);
     }
 
-    /** One search (and, in adaptive variants, the adaptation that follows). Returns the hops used. */
     public abstract int access(int k);
 
     public boolean wasFound() { return lastFound; }
@@ -59,7 +53,7 @@ public abstract class SkipListBase {
             predFull[lane] = x;
         }
         int c = nxt[predFull[0] * MAXL];
-        if (c != -1 && key[c] == k) return;                  // already present
+        if (c != -1 && key[c] == k) return;                  
         int id = (freeTop > 0) ? freeSlots[--freeTop] : used++;
         key[id] = k;
         base[id] = height[id] = randomHeight();
@@ -85,11 +79,10 @@ public abstract class SkipListBase {
         count[c] = 0;
         freeSlots[freeTop++] = c;
         n--;
-        while (top > 1 && nxt[top - 1] == -1) top--;         // header is slot 0
+        while (top > 1 && nxt[top - 1] == -1) top--;        
         return true;
     }
 
-    /** Search with early exit. Fills pred[] for the lanes visited and sets lastHops / lastFound. */
     protected final int search(int k) {
         int hops = 0;
         int x = 0;
@@ -106,7 +99,6 @@ public abstract class SkipListBase {
         return -1;
     }
 
-    /** Descent through every lane without early exit; used when a node must be unlinked. */
     protected final void fullDescent(int k, int[] out) {
         int x = 0;
         for (int lane = top - 1; lane >= 0; lane--) {
@@ -116,7 +108,6 @@ public abstract class SkipListBase {
         }
     }
 
-    /** Raise node u to the given height, one lane at a time, using the predecessors saved by the last search(). */
     protected final void promote(int u, int target) {
         while (height[u] < target) {
             int lane = height[u];
@@ -129,7 +120,6 @@ public abstract class SkipListBase {
         }
     }
 
-    /** Lower node v to the given height by removing its top lanes. */
     protected final void demote(int v, int target) {
         fullDescent(key[v], predFull);
         for (int lane = height[v] - 1; lane >= target; lane--) {
@@ -144,7 +134,6 @@ public abstract class SkipListBase {
     protected void onPromoted(int u) {}
     protected void onRemoving(int u) {}
 
-    /** Structural check: sorted lanes, contiguous heights, base <= height, every key present. */
     public boolean validate() {
         int[] seen = new int[used];
         for (int lane = 0; lane < MAXL; lane++) {
@@ -162,7 +151,7 @@ public abstract class SkipListBase {
             if (lane == 0 && c != n) return false;
         }
         for (int i = 1; i < used; i++) {
-            if (height[i] == 0) continue;                    // freed slot
+            if (height[i] == 0) continue;                    
             if (seen[i] != height[i]) return false;
             if (height[i] < base[i]) return false;
         }
